@@ -3,6 +3,8 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+import exception.CreatureListException;
+
 public class Bestiary {
 
 	private Map<String,Creature> allCreatures;
