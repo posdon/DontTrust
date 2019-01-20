@@ -3,19 +3,21 @@ package model;
 public class Creature {
 
 	private String name;
+	private Caracteristic caracteristic;
 	
-	public Creature(String name) {
+	public Creature(String name, Caracteristic caracteristic) {
 		this.name = name;
+		this.caracteristic = caracteristic;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public Caracteristic getCaracteristic() {
+		return caracteristic;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
