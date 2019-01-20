@@ -1,9 +1,12 @@
 package model;
 
+import model.gameStates.FactionState;
+
 public class Creature {
 
 	private String name;
 	private Caracteristic caracteristic;
+	private FactionState faction;
 	
 	public Creature(String name, Caracteristic caracteristic) {
 		this.name = name;
@@ -16,6 +19,10 @@ public class Creature {
 
 	public Caracteristic getCaracteristic() {
 		return caracteristic;
+	}
+	
+	public FactionState getFaction() {
+		return faction;
 	}
 	
 	@Override
