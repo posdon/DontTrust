@@ -4,8 +4,8 @@ import model.gameStates.FactionState;
 
 public class CreatureBuilder {
 
-	private String name;
-	private FactionState factionState;
+	private String name = "undefined";
+	private FactionState factionState = FactionState.NEUTRAL;
 	
 	public CreatureBuilder() {
 		this.name = null;
@@ -30,6 +30,6 @@ public class CreatureBuilder {
 	}
 	
 	public Creature build() {
-		return new Creature(name, new Caracteristic());
+		return new Creature(name, new Caracteristic(), factionState);
 	}
 }

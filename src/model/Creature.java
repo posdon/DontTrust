@@ -8,9 +8,10 @@ public class Creature {
 	private Caracteristic caracteristic;
 	private FactionState faction;
 	
-	public Creature(String name, Caracteristic caracteristic) {
+	public Creature(String name, Caracteristic caracteristic, FactionState faction) {
 		this.name = name;
 		this.caracteristic = caracteristic;
+		this.faction = faction;
 	}
 
 	public String getName() {
