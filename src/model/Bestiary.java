@@ -9,7 +9,7 @@ public class Bestiary {
 
 	private Map<String,Creature> allCreatures;
 	
-	public final Bestiary bestiary = new Bestiary();
+	public final static Bestiary bestiary = new Bestiary();
 	
 	private Bestiary() {
 		this.allCreatures = new HashMap<String,Creature>();
