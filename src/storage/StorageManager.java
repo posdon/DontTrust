@@ -1,19 +1,25 @@
 package storage;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.logging.Logger;
 
+import org.apache.commons.io.IOUtils;
+import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import exception.CreatureListException;
 import model.Bestiary;
+import model.Creature;
 
 public class StorageManager {
 	
-	private Logger logger = Logger.getLogger(this.getClass().getName());
+	private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 	private final String STORAGE_PATH;
 	private final String STORAGE_EXT = "json";
 	private Bestiary bestiary = Bestiary.bestiary;
+	private JSONConverter converter = JSONConverter.INSTANCE;
 	private File folder;
 
 	
@@ -28,24 +34,29 @@ public class StorageManager {
 	        if (!fileEntry.isDirectory() && fileEntry.getName().endsWith(STORAGE_EXT) && fileEntry.canRead()) {
 	        	try {
 					String fileContent = readFile(fileEntry);
-					
+					Creature creature = converter.stringToCreature(fileContent);
+					bestiary.addCreature(creature);
+				} catch (ParseException e) {
+					logger.warn("Can't convert json into creature for "+fileEntry.getName());
 				} catch (IOException e) {
-					logger.info("Load failure for "+fileEntry.getName());
+					logger.error("Can't open "+fileEntry.getName());
 					e.getStackTrace();
+				} catch (CreatureListException e) {
+					logger.warn(fileEntry.getName()+" already exist.");
 				}
 	        }
 	    }
 	}
 	
 	private String readFile(File file) throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(file));
+		FileInputStream input = new FileInputStream(file);
 		String fileContent = "";
-		String currentLine = reader.readLine();
-		while(currentLine != null) {
-			fileContent += currentLine;
-			currentLine = reader.readLine();
+		try {
+		     fileContent = IOUtils.toString(input);
+		     fileContent = fileContent.replaceAll("(\n|\t|\r)", "");
+		} finally {
+		    input.close();
 		}
-		reader.close();
 		return fileContent;
 	}
 }
