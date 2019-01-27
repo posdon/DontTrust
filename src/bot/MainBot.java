@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import model.Bestiary;
+import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import storage.StorageManager;
@@ -20,7 +21,8 @@ public class MainBot implements Runnable {
 	private boolean running = true;
 	private static String tag;
 	private final static Logger LOG = LoggerFactory.getLogger(MainBot.class);
-	private static JDA JDA;
+	private JDA JDA;
+	private BotListener botListener = new BotListener(this);
 	
 	private final static Properties BOT_PROP = new Properties();
 	private final static Properties DATABASE_PROP = new Properties();
@@ -29,18 +31,36 @@ public class MainBot implements Runnable {
 	
 	private Bestiary bestiary = Bestiary.bestiary;
 	private StorageManager storageManager;
+
+	private Scanner scanner;
 	
 	public JDA getJda() {
 		return JDA;
 	}
 	
+	public String getTag() {
+		return tag;
+	}
+	
 	@Override
 	public void run() {
 		LOG.info("Starting the bot.");
+		try {
+			JDA = new JDABuilder(AccountType.BOT).addEventListener(botListener).setToken(BOT_PROP.getProperty("token")).build();
+		} catch (LoginException e) {
+			LOG.error(e.getMessage());
+			this.running = false;
+		}
 		storageManager = new StorageManager(bestiary, DATABASE_PROP.getProperty("storage_path"));
 		storageManager.readAllFiles();
+		scanner = new Scanner(System.in);
 		while(this.running) {
+			if(scanner.hasNextLine()) {
+				botListener.onConsole(scanner.nextLine());
+			}
 		}
+		scanner.close();
+		JDA.shutdown();
 		LOG.info("Shut down.");
 	}
 	
@@ -48,12 +68,11 @@ public class MainBot implements Runnable {
 		this.running = false;
 	}
 	
-	public static void main(String[] args) throws LoginException {
+	public static void main(String[] args) {
 		boolean loading = loadBotProperties();
 		if(loading) loading = loadDatabaseProperties();
 		if(loading) {
 			tag = BOT_PROP.getProperty("tag");
-			JDA = new JDABuilder().setToken(BOT_PROP.getProperty("token")).build();
 			(new Thread(new MainBot())).start();
 		}
 		

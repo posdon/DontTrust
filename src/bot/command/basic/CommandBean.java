@@ -1,4 +1,4 @@
-package bot.command;
+package bot.command.basic;
 
 import java.lang.reflect.Method;
 
@@ -10,7 +10,7 @@ public class CommandBean {
 	private final Object object;
 	private final Method method;
 	
-	public CommandBean(String name, String description, bot.command.ExecutorType executorType, Object object,
+	public CommandBean(String name, String description, ExecutorType executorType, Object object,
 			Method method) {
 		super();
 		this.name = name;

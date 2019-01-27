@@ -7,12 +7,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import bot.BotListener;
 import bot.MainBot;
+import bot.command.basic.Command;
+import bot.command.basic.CommandBean;
+import bot.command.basic.ExecutorType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
@@ -31,23 +33,28 @@ public class CommandManager {
 	
 	private CommandManager(MainBot mainRef) {
 		this.mainRef = mainRef;
+		commands = new HashMap<String, CommandBean>();
 	}
 	
 	public static CommandManager getInstance(MainBot mainRef) {
 		if(INSTANCE == null) INSTANCE = new CommandManager(mainRef);
 		return INSTANCE;
 	}
+	
+	public String getTag() {
+		return mainRef.getTag();
+	}
    
-    public void registerCommands(BotListener...listeners){
-        for(BotListener listener : listeners) registerCommand(listener);
+    public void registerCommands(BasicCommand...commands){
+        for(BasicCommand command : commands) registerCommand(command);
     }
    
-    public void registerCommand(BotListener listener){
-        for(Method method : listener.getClass().getDeclaredMethods()){
+    public void registerCommand(BasicCommand basicCommand){
+        for(Method method : basicCommand.getClass().getDeclaredMethods()){
             if(method.isAnnotationPresent(Command.class)){
                 Command command = method.getAnnotation(Command.class);
                 method.setAccessible(true);
-                CommandBean commandBean = new CommandBean(command.name(), command.description(), command.type(), listener, method);
+                CommandBean commandBean = new CommandBean(command.name(), command.description(), command.type(), basicCommand, method);
                 commands.put(command.name(), commandBean);
             }
         }
