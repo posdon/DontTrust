@@ -3,6 +3,7 @@ package bot;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Scanner;
 
 import javax.security.auth.login.LoginException;
 
@@ -17,16 +18,21 @@ import storage.StorageManager;
 public class MainBot implements Runnable {
 	
 	private boolean running = true;
+	private static String tag;
 	private final static Logger LOG = LoggerFactory.getLogger(MainBot.class);
 	private static JDA JDA;
+	
 	private final static Properties BOT_PROP = new Properties();
 	private final static Properties DATABASE_PROP = new Properties();
+	private final static String BOT_PROPERTIES_FILE_PATH = "src/bot/bot.properties";
+	private final static String DATABASE_PROPERTIES_FILE_PATH = "src/bot/database.properties";
 	
 	private Bestiary bestiary = Bestiary.bestiary;
 	private StorageManager storageManager;
-
-	private final static String BOT_PROPERTIES_FILE_PATH = "src/bot/bot.properties";
-	private final static String DATABASE_PROPERTIES_FILE_PATH = "src/bot/database.properties";
+	
+	public JDA getJda() {
+		return JDA;
+	}
 	
 	@Override
 	public void run() {
@@ -34,7 +40,6 @@ public class MainBot implements Runnable {
 		storageManager = new StorageManager(bestiary, DATABASE_PROP.getProperty("storage_path"));
 		storageManager.readAllFiles();
 		while(this.running) {
-			
 		}
 		LOG.info("Shut down.");
 	}
@@ -47,6 +52,7 @@ public class MainBot implements Runnable {
 		boolean loading = loadBotProperties();
 		if(loading) loading = loadDatabaseProperties();
 		if(loading) {
+			tag = BOT_PROP.getProperty("tag");
 			JDA = new JDABuilder().setToken(BOT_PROP.getProperty("token")).build();
 			(new Thread(new MainBot())).start();
 		}
