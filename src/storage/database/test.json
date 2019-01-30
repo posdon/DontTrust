@@ -1,5 +1,5 @@
 {
-	name:test,
-	faction:PEACEFUL,
-	caracteristic:<NOT IMPLEMENTED YET>
+	"name":"test",
+	"faction":"PEACEFUL",
+	"caracteristic":"<NOT IMPLEMENTED YET>"
 }

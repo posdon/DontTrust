@@ -12,5 +12,15 @@ public enum FactionState {
 	PEACEFUL,
 	NEUTRAL,
 	DEVIANT,
-	AGGRESSIVE
+	AGGRESSIVE;
+	
+	public static FactionState getFactionState(String faction) {
+		switch(faction) {
+		case "PEACEFUL" : return PEACEFUL;
+		case "NEUTRAL" : return NEUTRAL;
+		case "DEVIANT" : return DEVIANT;
+		case "AGGRESSIVE" : return AGGRESSIVE;
+		}
+		return null;
+	}
 }

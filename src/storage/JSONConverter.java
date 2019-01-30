@@ -31,7 +31,7 @@ public class JSONConverter implements Converter {
 		JSONObject object = (JSONObject) parser.parse(jsonContent);
 		return (new CreatureBuilder())
 				.setName((String) object.get("name"))
-				.setFactionState((FactionState) object.get("faction")) 
+				.setFactionState(FactionState.getFactionState((String) object.get("faction"))) 
 				.build();
 	}
 
