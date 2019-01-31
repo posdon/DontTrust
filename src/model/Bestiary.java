@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,10 @@ public class Bestiary {
 	
 	public Creature getCreature(String creatureName) {
 		return this.allCreatures.get(creatureName);
+	}
+	
+	public Collection<Creature> getAllCreatures(){
+		return allCreatures.values();
 	}
 	
 	public void addCreature(Creature creature) throws CreatureListException {
