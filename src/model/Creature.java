@@ -7,11 +7,13 @@ public class Creature {
 	private String name;
 	private Caracteristic caracteristic;
 	private FactionState faction;
+	private String descriptionPhysique;
 	
-	public Creature(String name, Caracteristic caracteristic, FactionState faction) {
+	public Creature(String name, Caracteristic caracteristic, FactionState faction, String descriptionPhysique) {
 		this.name = name;
 		this.caracteristic = caracteristic;
 		this.faction = faction;
+		this.descriptionPhysique = descriptionPhysique;
 	}
 
 	public String getName() {
@@ -24,6 +26,10 @@ public class Creature {
 	
 	public FactionState getFaction() {
 		return faction;
+	}
+
+	public String getDescriptionPhysique() {
+		return descriptionPhysique;
 	}
 	
 	@Override

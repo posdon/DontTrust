@@ -32,6 +32,7 @@ public class JSONConverter implements Converter {
 		return (new CreatureBuilder())
 				.setName((String) object.get("name"))
 				.setFactionState(FactionState.getFactionState((String) object.get("faction"))) 
+				.setDescriptionPhysique((String) object.get("physique"))
 				.build();
 	}
 
@@ -41,9 +42,11 @@ public class JSONConverter implements Converter {
 		String name = creature.getName();
 		FactionState faction = creature.getFaction();
 		String jsonCaracteristic = caracteristicToString(creature.getCaracteristic());
+		String descriptionPhysique = creature.getDescriptionPhysique();
 		jsonObject.put("name", name);
 		jsonObject.put("caracteristic", jsonCaracteristic);
 		jsonObject.put("faction", faction.toString());
+		jsonObject.put("physique", descriptionPhysique);
 		return jsonObject.toJSONString();
 	}
 

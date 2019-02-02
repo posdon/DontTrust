@@ -49,7 +49,8 @@ public class BestiaryBotCommand extends BasicCommand {
 	@Command(name="info", description="Get the detail of a creature", type=ExecutorType.BOT)
 	public void infoCreature(MessageChannel mChannel, String creatureName) {
 		Creature creature = Bestiary.bestiary.getCreature(creatureName);
-		EmbedBuilder embedBuilder = new EmbedBuilder().setAuthor(creature.getName());
+		EmbedBuilder embedBuilder = new EmbedBuilder().setAuthor(creature.getName())
+				.addField("Description physique :", creature.getDescriptionPhysique(), false);
 		Color color = null;
 		switch(creature.getFaction()) {
 			case AGGRESSIVE :
