@@ -7,6 +7,7 @@ import java.util.Collection;
 import bot.MainBot;
 import bot.command.basic.Command;
 import bot.command.basic.ExecutorType;
+import exception.MessageOver2000Exception;
 import model.Bestiary;
 import model.Creature;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -31,13 +32,17 @@ public class BestiaryBotCommand extends BasicCommand {
 	
 	// TODO : Page system to limit overload
 	@Command(name="listAll", description="List all the creature in the bestiary")
-	public void listAllCreature(MessageChannel mChannel) {
+	public void listAllCreature(MessageChannel mChannel) throws MessageOver2000Exception {
 		Collection<Creature> creatures = Bestiary.bestiary.getAllCreatures();
 		String message = "This is all creatures :";
 		for(Creature creature : creatures) {
 			message += "\n - "+creature.getName();
 		}
-		sendMessage(message, mChannel);
+		try {
+			sendMessage(message, mChannel);
+		} catch (MessageOver2000Exception e) {
+			sendMessage("It looks like an creature have a name which is longer than 2000 caracters... What a troller...", mChannel);
+		}
 	}
 	
 	// TODO : Page system to limit overload
@@ -68,9 +73,13 @@ public class BestiaryBotCommand extends BasicCommand {
 	}
 	
 	@Command(name="help", type=ExecutorType.BOT, description="List all the command helper")
-	public void helper(MessageChannel mChannel) {
+	public void helper(MessageChannel mChannel) throws MessageOver2000Exception {
 		String helperMessage = generateHelperMessage();
-		sendMessage(helperMessage, mChannel);
+		try {
+			sendMessage(helperMessage, mChannel);
+		} catch (MessageOver2000Exception e) {
+			sendMessage("It looks like a command have a name and description which are longer than 2000 caracters... What a troller...", mChannel);
+		}
 	}
 
 }
