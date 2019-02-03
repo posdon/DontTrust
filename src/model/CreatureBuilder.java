@@ -3,13 +3,15 @@ package model;
 import model.gameStates.FactionState;
 
 public class CreatureBuilder {
-
-	private String name = "undefined";
-	private FactionState factionState = FactionState.NEUTRAL;
+	
+	private String name;
+	private FactionState factionState;
 	private String descriptionPhysique;
+	private Family family;
 
 	public CreatureBuilder() {
-		this.name = null;
+		this.name = "undefined";
+		this.factionState = FactionState.NEUTRAL;
 	}
 	
 	public String getName() {
@@ -39,7 +41,16 @@ public class CreatureBuilder {
 		return this;
 	}
 	
+	public Family getFamily() {
+		return this.family;
+	}
+	
+	public CreatureBuilder setFamily(Family family) {
+		this.family = family;
+		return this;
+	}
+	
 	public Creature build() {
-		return new Creature(name, new Caracteristic(), factionState, descriptionPhysique);
+		return new Creature(name, new Caracteristic(), factionState, descriptionPhysique, family);
 	}
 }

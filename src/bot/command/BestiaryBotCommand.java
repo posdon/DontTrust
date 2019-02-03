@@ -3,6 +3,7 @@ package bot.command;
 import java.awt.Color;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.List;
 
 import bot.MainBot;
 import bot.command.basic.Command;
@@ -10,6 +11,8 @@ import bot.command.basic.ExecutorType;
 import exception.MessageOver2000Exception;
 import model.Bestiary;
 import model.Creature;
+import model.Family;
+import model.FamilyBook;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
@@ -31,7 +34,42 @@ public class BestiaryBotCommand extends BasicCommand {
 	}
 	
 	// TODO : Page system to limit overload
-	@Command(name="listAll", description="List all the creature in the bestiary")
+	@Command(name="listAllFamily", description="List all the creature in the bestiary")
+	public void listAllFamily(MessageChannel mChannel) throws MessageOver2000Exception {
+		Collection<Family> families = FamilyBook.familyBook.getFamilies();
+		String message = "This is all families :";
+		for(Family family : families) {
+			message += "\n - "+family.getFamilyName();
+		}
+		try {
+			sendMessage(message, mChannel);
+		} catch (MessageOver2000Exception e) {
+			sendMessage("It looks like a family have a name which is longer than 2000 caracters... What a troller...", mChannel);
+		}
+	}
+	
+	// TODO : Page system to limit overload
+		@Command(name="listInFamily", description="Give a family name, list all the creature in this family")
+		public void listAllFamily(MessageChannel mChannel, String familyName) throws MessageOver2000Exception {
+			Family family = FamilyBook.familyBook.getFamily(familyName);
+			if(family == null) {
+				sendMessage("The family '"+familyName+"' doesn't exist.", mChannel);
+				return;
+			}
+			List<String> creaturesNames = FamilyBook.familyBook.getCreaturesFromFamily(family);
+			String message = "This is all creature for the family '"+family+"' :";
+			for(String creatureName : creaturesNames) {
+				message += "\n - "+creatureName;
+			}
+			try {
+				sendMessage(message, mChannel);
+			} catch (MessageOver2000Exception e) {
+				sendMessage("It looks like a creature have a name which is longer than 2000 caracters... What a troller...", mChannel);
+			}
+		}
+	
+	// TODO : Page system to limit overload
+	@Command(name="listAllCreature", description="List all the creature in the bestiary")
 	public void listAllCreature(MessageChannel mChannel) throws MessageOver2000Exception {
 		Collection<Creature> creatures = Bestiary.bestiary.getAllCreatures();
 		String message = "This is all creatures :";
@@ -46,7 +84,7 @@ public class BestiaryBotCommand extends BasicCommand {
 	}
 	
 	// TODO : Page system to limit overload
-	@Command(name="info", description="Get the detail of a creature", type=ExecutorType.BOT)
+	@Command(name="infoCreature", description="Given a creeature name, get the detail of a creature", type=ExecutorType.BOT)
 	public void infoCreature(MessageChannel mChannel, String creatureName) {
 		Creature creature = Bestiary.bestiary.getCreature(creatureName);
 		EmbedBuilder embedBuilder = new EmbedBuilder().setAuthor(creature.getName().toUpperCase())
@@ -70,6 +108,13 @@ public class BestiaryBotCommand extends BasicCommand {
 				break;
 		}
 		embedBuilder.setColor(color);
+		sendEmbed(embedBuilder, mChannel);
+	}
+	
+	@Command(name="infoFamily", description="Given a family name, get the detail of a family", type=ExecutorType.BOT)
+	public void infoFamily(MessageChannel mChannel, String familyName) {
+		Family family = FamilyBook.familyBook.getFamily(familyName);
+		EmbedBuilder embedBuilder = new EmbedBuilder().setAuthor(family.getFamilyName().toUpperCase());
 		sendEmbed(embedBuilder, mChannel);
 	}
 	

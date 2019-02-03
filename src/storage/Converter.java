@@ -4,6 +4,7 @@ import org.json.simple.parser.ParseException;
 
 import model.Caracteristic;
 import model.Creature;
+import model.Family;
 
 public interface Converter {
 
@@ -14,4 +15,8 @@ public interface Converter {
 	Caracteristic stringToCaracteristic(String jsonContent) throws ParseException;
 	
 	String caracteristicToString(Caracteristic caracteristic);
+	
+	Family stringToFamily(String jsonContent) throws ParseException;
+	
+	String familyToString(Family family);
 }

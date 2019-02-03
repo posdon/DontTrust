@@ -8,12 +8,15 @@ public class Creature {
 	private Caracteristic caracteristic;
 	private FactionState faction;
 	private String descriptionPhysique;
+	private Family family;
 	
-	public Creature(String name, Caracteristic caracteristic, FactionState faction, String descriptionPhysique) {
+	public Creature(String name, Caracteristic caracteristic, FactionState faction, String descriptionPhysique, Family family) {
 		this.name = name;
 		this.caracteristic = caracteristic;
 		this.faction = faction;
 		this.descriptionPhysique = descriptionPhysique;
+		this.family = family;
+		FamilyBook.familyBook.addIntoFamily(name, family);
 	}
 
 	public String getName() {
@@ -30,6 +33,10 @@ public class Creature {
 
 	public String getDescriptionPhysique() {
 		return descriptionPhysique;
+	}
+	
+	public Family getFamily() {
+		return this.family;
 	}
 	
 	@Override

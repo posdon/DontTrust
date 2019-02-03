@@ -2,5 +2,8 @@
 	"name":"test",
 	"faction":"PEACEFUL",
 	"caracteristic":"<NOT IMPLEMENTED YET>",
-	"physique":"This is an abstract concept just to test. Not a real creature. That's why it doesn't have any physical description."
+	"physique":"This is an abstract concept just to test. Not a real creature. That's why it doesn't have any physical description.",
+	"family": {
+		"name":"familyTest"
+	}
 }
