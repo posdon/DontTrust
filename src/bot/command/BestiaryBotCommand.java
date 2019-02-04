@@ -88,7 +88,11 @@ public class BestiaryBotCommand extends BasicCommand {
 	public void infoCreature(MessageChannel mChannel, String creatureName) {
 		Creature creature = Bestiary.bestiary.getCreature(creatureName);
 		EmbedBuilder embedBuilder = new EmbedBuilder().setAuthor(creature.getName().toUpperCase())
-				.addField("Description physique :", creature.getDescriptionPhysique(), false);
+				.addField("Famille :", creature.getFamily().getFamilyName(), false)
+				.addField("Description physique :", creature.getDescriptionPhysique(), false)
+				.addField("Vie :", Integer.toString(creature.getCaracteristic().getLife()), true)
+				.addField("Force :", Integer.toString(creature.getCaracteristic().getStrength()), true)
+				.addField("Folie :", Integer.toString(creature.getCaracteristic().getMadness()), true);
 		Color color = null;
 		switch(creature.getFaction()) {
 			case AGGRESSIVE :
