@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 
 import exception.JSONConverterException;
 import model.Caracteristic;
+import model.CaracteristicBuilder;
 import model.Creature;
 import model.CreatureBuilder;
 import model.Family;
@@ -35,6 +36,7 @@ public class JSONConverter implements Converter {
 		JSONObject object = (JSONObject) parser.parse(jsonContent);
 		return (new CreatureBuilder())
 				.setName((String) object.get("name"))
+				.setCaracteristic(stringToCaracteristic(object.get("caracteristic").toString()))
 				.setFactionState(FactionState.getFactionState((String) object.get("faction"))) 
 				.setDescriptionPhysique((String) object.get("physique"))
 				.setFamily(stringToFamily(object.get("family").toString()))
@@ -58,13 +60,29 @@ public class JSONConverter implements Converter {
 	}
 
 	@Override
-	public Caracteristic stringToCaracteristic(String string) throws ParseException {
-		return new Caracteristic();
+	public Caracteristic stringToCaracteristic(String jsonContent) throws ParseException {
+		JSONParser parser = new JSONParser();
+		JSONObject object = (JSONObject) parser.parse(jsonContent);
+		int life = Integer.parseInt((String) object.get("life"));
+		int strength = Integer.parseInt((String) object.get("strength"));
+		int madness = Integer.parseInt((String) object.get("madness"));
+		return (new CaracteristicBuilder()
+				.setLife(life)
+				.setStrength(strength)
+				.setMadness(madness)
+				.build());
 	}
 
 	@Override
 	public String caracteristicToString(Caracteristic caracteristic) {
-		return "<Not implemented yet>";
+		JSONObject jsonObject = new JSONObject();
+		int life = caracteristic.getLife();
+		int strength = caracteristic.getStrength();
+		int madness = caracteristic.getMadness();
+		jsonObject.put("life", life);
+		jsonObject.put("strength", strength);
+		jsonObject.put("madness", madness);
+		return jsonObject.toJSONString();
 	}
 
 	@Override

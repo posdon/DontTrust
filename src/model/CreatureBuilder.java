@@ -6,6 +6,7 @@ public class CreatureBuilder {
 	
 	private String name;
 	private FactionState factionState;
+	private Caracteristic caracteristic;
 	private String descriptionPhysique;
 	private Family family;
 
@@ -32,6 +33,15 @@ public class CreatureBuilder {
 		return this;
 	}
 	
+	public Caracteristic getCaracteristic() {
+		return caracteristic;
+	}
+
+	public CreatureBuilder setCaracteristic(Caracteristic caracteristic) {
+		this.caracteristic = caracteristic;
+		return this;
+	}
+
 	public String getDescriptionPhysique() {
 		return descriptionPhysique;
 	}
@@ -51,6 +61,6 @@ public class CreatureBuilder {
 	}
 	
 	public Creature build() {
-		return new Creature(name, new Caracteristic(), factionState, descriptionPhysique, family);
+		return new Creature(name, caracteristic, factionState, descriptionPhysique, family);
 	}
 }

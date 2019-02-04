@@ -1,7 +1,12 @@
 {
 	"name":"test",
 	"faction":"PEACEFUL",
-	"caracteristic":"<NOT IMPLEMENTED YET>",
+	"caracteristic": {
+		"life": "1",
+		"strength" : "2",
+		"madness" : "3",
+		"intelligence" : "4"
+	},
 	"physique":"This is an abstract concept just to test. Not a real creature. That's why it doesn't have any physical description.",
 	"family": {
 		"name":"familyTest"
