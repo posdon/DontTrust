@@ -24,6 +24,10 @@ public class Bestiary {
 		return allCreatures.values();
 	}
 	
+	public Collection<String> getAllCreaturesName(){
+		return allCreatures.keySet();
+	}
+	
 	public void addCreature(Creature creature) throws CreatureListException {
 		String creatureName = creature.getName();
 		if(this.allCreatures.containsKey(creatureName)) throw new CreatureListException(true, creatureName);
