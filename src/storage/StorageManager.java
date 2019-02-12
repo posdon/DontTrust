@@ -43,6 +43,8 @@ public class StorageManager {
 					e.getStackTrace();
 				} catch (CreatureListException e) {
 					logger.warn(fileEntry.getName()+" already exist.");
+				} catch (Exception e) {
+					logger.warn("An creature name is blank.");
 				}
 	        }
 	    }

@@ -8,7 +8,7 @@ import model.Family;
 
 public interface Converter {
 
-	Creature stringToCreature(String jsonContent) throws ParseException; 
+	Creature stringToCreature(String jsonContent) throws Exception; 
 	
 	String creatureToString(Creature creature);
 	

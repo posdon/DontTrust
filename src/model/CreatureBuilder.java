@@ -1,5 +1,7 @@
 package model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import model.gameStates.FactionState;
 
 public class CreatureBuilder {
@@ -19,7 +21,8 @@ public class CreatureBuilder {
 		return this.name;
 	}
 	
-	public CreatureBuilder setName(String name) {
+	public CreatureBuilder setName(String name) throws Exception {
+		if(StringUtils.isBlank(name)) throw new Exception();
 		this.name = name;
 		return this;
 	}

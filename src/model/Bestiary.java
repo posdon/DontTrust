@@ -38,4 +38,8 @@ public class Bestiary {
 		if(!this.allCreatures.containsKey(creatureName)) throw new CreatureListException(false, creatureName);
 		this.allCreatures.remove(creatureName);
 	}
+	
+	public boolean isValidName(String name) {
+		return !this.allCreatures.containsKey(name);
+	}
 }

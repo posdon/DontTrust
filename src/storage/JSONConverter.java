@@ -31,7 +31,7 @@ public class JSONConverter implements Converter {
 	}
 	
 	@Override
-	public Creature stringToCreature(String jsonContent) throws ParseException {
+	public Creature stringToCreature(String jsonContent) throws Exception {
 		JSONParser parser = new JSONParser();
 		JSONObject object = (JSONObject) parser.parse(jsonContent);
 		return (new CreatureBuilder())
