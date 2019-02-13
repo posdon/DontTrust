@@ -70,7 +70,7 @@
             <ToolBar prefHeight="40.0" prefWidth="200.0">
               <items>
                   <Button mnemonicParsing="false" text="Save" />
-                  <Button mnemonicParsing="false" text="New" />
+                  <Button mnemonicParsing="false" onAction="#handlerNewButton" text="New" />
                   <Button mnemonicParsing="false" text="Suppress" />
               </items>
             </ToolBar>
