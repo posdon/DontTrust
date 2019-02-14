@@ -71,7 +71,7 @@
               <items>
                   <Button mnemonicParsing="false" text="Save" />
                   <Button mnemonicParsing="false" onAction="#handlerNewButton" text="New" />
-                  <Button mnemonicParsing="false" text="Suppress" />
+                  <Button mnemonicParsing="false" onAction="#handlerDeleteButton" text="Delete" />
               </items>
             </ToolBar>
          </children>

@@ -70,6 +70,21 @@ public class GuiMainController {
 		}
 	}
 	
+	@FXML
+	public void handlerDeleteButton() {
+		String creatureName = this.creatureList.getSelectionModel().getSelectedItem();
+		try {
+			Bestiary.bestiary.removeCreature(creatureName);
+			refreshCreatureList();
+		} catch (CreatureListException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+	        alert.setTitle("Delete Creature Error");
+	        alert.setHeaderText("Creature doesn't exist");
+	        alert.setContentText("The creature '"+creatureName+"' doesn't exist.");
+	        alert.showAndWait(); 
+		}
+	}
+	
 	private void refreshCreatureList() {
 		creatureListProperty.set(FXCollections.observableArrayList(Bestiary.bestiary.getAllCreaturesName()));
 	}
