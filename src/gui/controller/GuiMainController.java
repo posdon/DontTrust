@@ -85,6 +85,11 @@ public class GuiMainController {
 		}
 	}
 	
+	@FXML
+	public void handlerSaveButton() {
+		mainRef.saveAll();
+	}
+	
 	private void refreshCreatureList() {
 		creatureListProperty.set(FXCollections.observableArrayList(Bestiary.bestiary.getAllCreaturesName()));
 	}

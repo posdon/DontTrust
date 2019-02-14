@@ -85,4 +85,8 @@ public class MainGui extends Application {
 		
 		return controller.isOkClicked();
 	}
+	
+	public void saveAll() {
+		storageManager.saveAllFiles();
+	}
 }
