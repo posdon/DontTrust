@@ -1,5 +1,6 @@
 package storage;
 
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import model.Caracteristic;
@@ -10,13 +11,13 @@ public interface Converter {
 
 	Creature stringToCreature(String jsonContent) throws Exception; 
 	
-	String creatureToString(Creature creature);
+	JSONObject creatureToString(Creature creature);
 	
 	Caracteristic stringToCaracteristic(String jsonContent) throws ParseException;
 	
-	String caracteristicToString(Caracteristic caracteristic);
+	JSONObject caracteristicToString(Caracteristic caracteristic);
 	
 	Family stringToFamily(String jsonContent) throws ParseException;
 	
-	String familyToString(Family family);
+	JSONObject familyToString(Family family);
 }

@@ -2,7 +2,11 @@ package storage;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.json.simple.parser.ParseException;
@@ -10,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import exception.CreatureListException;
+import exception.JSONConverterException;
 import model.Bestiary;
 import model.Creature;
 
@@ -60,5 +65,42 @@ public class StorageManager {
 		    input.close();
 		}
 		return fileContent;
+	}
+	
+	public void saveAllFiles() {
+		List<File> allFiles = new ArrayList<File>();
+		for(File fileEntry : folder.listFiles()) {
+			String fileName = fileEntry.getName().substring(0, fileEntry.getName().length()-STORAGE_EXT.length()-1);
+			if(!Bestiary.bestiary.getAllCreaturesName().contains(fileName)) {
+				fileEntry.delete();
+			} else {
+				allFiles.add(fileEntry);
+			}
+		}
+		for(Creature creature : Bestiary.bestiary.getAllCreatures()) {
+			File creatureFile = null;
+			for(File currentFile : allFiles) {
+				if(currentFile.getName().equals(creature.getName()+'.'+STORAGE_EXT)) creatureFile = currentFile;
+			}
+			if(creatureFile == null) creatureFile = new File(STORAGE_PATH+'/'+creature.getName()+'.'+STORAGE_EXT);
+			try {
+				saveInFile(creature,creatureFile);
+			} catch (FileNotFoundException e) {
+				logger.error("Can't save the creature '"+creature.getName()+"' in file :"+creatureFile.getAbsolutePath());
+			}
+		}
+		
+	}
+	
+	public void saveInFile(Creature creature, File file) throws FileNotFoundException {
+		PrintWriter writer = new PrintWriter(file);
+		String creatureJSON;
+		try {
+			creatureJSON = converter.modelToJson(creature);
+			writer.print(creatureJSON);
+			writer.close();
+		} catch (JSONConverterException e) {
+			logger.error("Can't convert the creature '"+creature.getName()+"'");
+		}
 	}
 }
