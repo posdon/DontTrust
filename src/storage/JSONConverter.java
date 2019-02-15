@@ -65,8 +65,8 @@ public class JSONConverter implements Converter {
 		JSONObject object = (JSONObject) parser.parse(jsonContent);
 		CaracteristicBuilder builder = new CaracteristicBuilder();
 		if(object.get("life") != null) builder.setLife(Integer.parseInt(object.get("life").toString()));
-		if(object.get("madness") != null) builder.setLife(Integer.parseInt(object.get("madness").toString()));
-		if(object.get("strength") != null) builder.setLife(Integer.parseInt(object.get("strength").toString()));
+		if(object.get("madness") != null) builder.setMadness(Integer.parseInt(object.get("madness").toString()));
+		if(object.get("strength") != null) builder.setStrength(Integer.parseInt(object.get("strength").toString()));
 		return builder.build();
 	}
 
