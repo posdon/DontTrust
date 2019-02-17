@@ -37,5 +37,7 @@ public class Family {
 		return true;
 	}
 	
-	
+	public String toString() {
+		return familyName;
+	}
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -32,10 +33,58 @@
                                        <children>
                                           <VBox layoutX="57.0" layoutY="25.0" prefHeight="626.0" prefWidth="630.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
+                                                <HBox prefHeight="50.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Label text="Name : ">
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" top="10.0" />
+                                                         </HBox.margin></Label>
+                                                      <Label fx:id="creatureNameLabel" text="Label">
+                                                         <HBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </HBox.margin></Label>
+                                                      <Label text="Family : ">
+                                                         <HBox.margin>
+                                                            <Insets left="50.0" top="10.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Label fx:id="creatureFamilyLabel" text="Label">
+                                                         <HBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Label text="Faction : ">
+                                                         <HBox.margin>
+                                                            <Insets left="70.0" top="10.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Label fx:id="creatureFactionLabel" text="Label">
+                                                         <HBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
                                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                                    <children>
-                                                      <Label text="Name : " />
-                                                      <Label fx:id="creatureNameLabel" text="Label" />
+                                                      <Label text="Life : ">
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Label fx:id="creatureLifeLabel" text="Label" />
+                                                      <Label text="Strength : ">
+                                                         <HBox.margin>
+                                                            <Insets left="60.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Label fx:id="creatureStrengthLabel" text="Label" />
+                                                      <Label text="Madness : ">
+                                                         <HBox.margin>
+                                                            <Insets left="60.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Label fx:id="creatureMadnessLabel" text="Label" />
                                                    </children>
                                                 </HBox>
                                              </children>

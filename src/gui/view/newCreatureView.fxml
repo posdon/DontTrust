@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -35,6 +36,59 @@
                      </font>
                   </Label>
                </children>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <Label text="Faction : ">
+                     <HBox.margin>
+                        <Insets left="50.0" top="4.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="factionChoiceBox" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <Label text="Family : ">
+                     <HBox.margin>
+                        <Insets left="50.0" top="4.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="familyChoiceBox" prefWidth="150.0">
+                     <HBox.margin>
+                        <Insets left="3.0" />
+                     </HBox.margin></ChoiceBox>
+                  <Button fx:id="newFamilyButton" mnemonicParsing="false" text="New">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <Label text="Life : ">
+                     <HBox.margin>
+                        <Insets left="50.0" top="4.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="lifeTextField" onKeyTyped="#handlerNameChanged" onMouseClicked="#handlerNameChanged" prefWidth="50.0" />
+                  <Label text="Strength : ">
+                     <HBox.margin>
+                        <Insets left="40.0" top="4.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="strengthTextField" onKeyTyped="#handlerNameChanged" onMouseClicked="#handlerNameChanged" prefWidth="50.0" />
+                  <Label text="Madness : ">
+                     <HBox.margin>
+                        <Insets left="40.0" top="4.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="madnessTextField" onKeyTyped="#handlerNameChanged" onMouseClicked="#handlerNameChanged" prefWidth="50.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="4.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>

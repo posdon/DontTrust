@@ -2,20 +2,40 @@ package gui.controller;
 
 import org.apache.commons.lang3.StringUtils;
 
-import gui.MainGui;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Bestiary;
+import model.CaracteristicBuilder;
 import model.CreatureBuilder;
+import model.Family;
+import model.FamilyBook;
+import model.gameStates.FactionState;
 
 public class NewCreatureController {
 
 	@FXML
 	private TextField nameTextField;
+	
+	@FXML
+	private ChoiceBox<Family> familyChoiceBox;
+	
+	@FXML
+	private ChoiceBox<FactionState> factionChoiceBox;
+	
+	@FXML
+	private TextField lifeTextField;
+	
+	@FXML
+	private TextField strengthTextField;
+	
+	@FXML
+	private TextField madnessTextField;
 
 	private final String VERIFICATION_NAME_TEXT_OK = "The name is valid !";
 	private final String VERIFICATION_NAME_TEXT_KO = "The name is already used.";
@@ -31,6 +51,9 @@ public class NewCreatureController {
 	@FXML
 	public void initialize() {
 		verificationNameLabel.setText(VERIFICATION_NAME_TEXT_KO);
+		factionChoiceBox.setItems(FXCollections.observableArrayList(FactionState.values()));
+		factionChoiceBox.getSelectionModel().select(FactionState.NEUTRAL);
+		familyChoiceBox.setItems(FXCollections.observableArrayList(FamilyBook.familyBook.getFamilies()));
 	}
 	
 	public boolean verifNameValid() {
@@ -39,6 +62,13 @@ public class NewCreatureController {
 			try {
 				builder.setName(name);
 				verificationNameLabel.setText(VERIFICATION_NAME_TEXT_OK);
+				builder.setCaracteristic((new CaracteristicBuilder())
+						.setLife(StringUtils.isBlank(lifeTextField.getText())?0:Integer.parseInt(lifeTextField.getText()))
+						.setStrength(StringUtils.isBlank(strengthTextField.getText())?0:Integer.parseInt(strengthTextField.getText()))
+						.setMadness(StringUtils.isBlank(madnessTextField.getText())?0:Integer.parseInt(madnessTextField.getText()))
+						.build());
+				builder.setFamily(familyChoiceBox.getValue());
+				builder.setFactionState(factionChoiceBox.getValue());
 				return true;
 			} catch (Exception e) {}
 		}

@@ -31,6 +31,21 @@ public class GuiMainController {
 	@FXML
 	private Label creatureNameLabel;
 	
+	@FXML
+	private Label creatureFamilyLabel;
+	
+	@FXML
+	private Label creatureFactionLabel;
+	
+	@FXML
+	private Label creatureLifeLabel;
+	
+	@FXML
+	private Label creatureStrengthLabel;
+	
+	@FXML
+	private Label creatureMadnessLabel;
+	
 	private ListProperty<String> creatureListProperty = new SimpleListProperty<>();
 	
 	private MainGui mainRef;
@@ -96,5 +111,11 @@ public class GuiMainController {
 	
 	private void refreshCreatureDetail(Creature creature) {
 		creatureNameLabel.setText((creature == null)?"":creature.getName());
+		creatureFactionLabel.setText((creature == null)?"":creature.getFaction().toString());
+		creatureFamilyLabel.setText((creature == null)?"":creature.getFamily().getFamilyName());
+		creatureLifeLabel.setText((creature == null)?"":Integer.toString(creature.getCaracteristic().getLife()));
+		creatureStrengthLabel.setText((creature == null)?"":Integer.toString(creature.getCaracteristic().getStrength()));
+		creatureMadnessLabel.setText((creature == null)?"":Integer.toString(creature.getCaracteristic().getMadness()));
+		
 	}
 }
