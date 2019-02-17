@@ -25,17 +25,17 @@ public class StorageManager {
 	private final String STORAGE_EXT = "json";
 	private Bestiary bestiary = Bestiary.bestiary;
 	private JSONConverter converter = JSONConverter.INSTANCE;
-	private File folder;
+	private File folderCreature;
 
 	
 	public StorageManager(Bestiary bestiary, String storage_path) {
 		this.bestiary = bestiary;
 		this.STORAGE_PATH = storage_path;
-		folder = new File(STORAGE_PATH);
+		folderCreature = new File(STORAGE_PATH+"/creature");
 	}
 	
 	public void readAllFiles() {
-	    for (final File fileEntry : folder.listFiles()) {
+	    for (final File fileEntry : folderCreature.listFiles()) {
 	        if (!fileEntry.isDirectory() && fileEntry.getName().endsWith(STORAGE_EXT) && fileEntry.canRead()) {
 	        	try {
 					String fileContent = readFile(fileEntry);
@@ -69,7 +69,7 @@ public class StorageManager {
 	
 	public void saveAllFiles() {
 		List<File> allFiles = new ArrayList<File>();
-		for(File fileEntry : folder.listFiles()) {
+		for(File fileEntry : folderCreature.listFiles()) {
 			String fileName = fileEntry.getName().substring(0, fileEntry.getName().length()-STORAGE_EXT.length()-1);
 			if(!Bestiary.bestiary.getAllCreaturesName().contains(fileName)) {
 				fileEntry.delete();
@@ -82,7 +82,7 @@ public class StorageManager {
 			for(File currentFile : allFiles) {
 				if(currentFile.getName().equals(creature.getName()+'.'+STORAGE_EXT)) creatureFile = currentFile;
 			}
-			if(creatureFile == null) creatureFile = new File(STORAGE_PATH+'/'+creature.getName()+'.'+STORAGE_EXT);
+			if(creatureFile == null) creatureFile = new File(STORAGE_PATH+"/creature/"+creature.getName()+'.'+STORAGE_EXT);
 			try {
 				saveInFile(creature,creatureFile);
 			} catch (FileNotFoundException e) {
