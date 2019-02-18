@@ -110,12 +110,20 @@ public class GuiMainController {
 	}
 	
 	private void refreshCreatureDetail(Creature creature) {
-		creatureNameLabel.setText((creature == null)?"":creature.getName());
-		creatureFactionLabel.setText((creature == null)?"":creature.getFaction().toString());
-		creatureFamilyLabel.setText((creature == null)?"":creature.getFamily().getFamilyName());
-		creatureLifeLabel.setText((creature == null)?"":Integer.toString(creature.getCaracteristic().getLife()));
-		creatureStrengthLabel.setText((creature == null)?"":Integer.toString(creature.getCaracteristic().getStrength()));
-		creatureMadnessLabel.setText((creature == null)?"":Integer.toString(creature.getCaracteristic().getMadness()));
-		
+		if(creature == null) {
+			creatureNameLabel.setText("");
+			creatureFactionLabel.setText("");
+			creatureFamilyLabel.setText("");
+			creatureLifeLabel.setText("");
+			creatureStrengthLabel.setText("");
+			creatureMadnessLabel.setText("");
+		} else {
+			creatureNameLabel.setText((creature.getName() == null)?"":creature.getName());
+			creatureFactionLabel.setText((creature.getFaction() == null)?"":creature.getFaction().toString());
+			creatureFamilyLabel.setText((creature.getFamily() == null)?"":creature.getFamily().getFamilyName());
+			creatureLifeLabel.setText((creature.getCaracteristic() == null)?"":Integer.toString(creature.getCaracteristic().getLife()));
+			creatureStrengthLabel.setText((creature.getCaracteristic() == null)?"":Integer.toString(creature.getCaracteristic().getStrength()));
+			creatureMadnessLabel.setText((creature.getCaracteristic() == null)?"":Integer.toString(creature.getCaracteristic().getMadness()));
+		}
 	}
 }
