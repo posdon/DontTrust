@@ -33,7 +33,7 @@ public class MainGui extends Application {
 	@Override
 	public void start(Stage primaryStg) throws Exception {
 		primaryStage = primaryStg;
-		storageManager = new StorageManager(Bestiary.bestiary, DATABASE_PROP.getProperty("storage_path"));
+		storageManager = new StorageManager(DATABASE_PROP.getProperty("storage_path"));
 		storageManager.readAllFiles();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("view/mainView.fxml"));

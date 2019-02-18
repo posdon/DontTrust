@@ -23,6 +23,12 @@ public class FamilyBook {
 		families.get(family).add(creatureName);
 	}
 	
+	public void addFamily(Family family) {
+		if(!families.containsKey(family)) {
+			families.put(family, new ArrayList<String>());
+		}
+	}
+	
 	public Family getFamily(String familyName) {
 		for(Family family : families.keySet()) {
 			if(family.getFamilyName().equals(familyName)) {

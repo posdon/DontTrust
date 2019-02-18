@@ -51,7 +51,7 @@ public class MainBot implements Runnable {
 			LOG.error(e.getMessage());
 			this.running = false;
 		}
-		storageManager = new StorageManager(bestiary, DATABASE_PROP.getProperty("storage_path"));
+		storageManager = new StorageManager(DATABASE_PROP.getProperty("storage_path"));
 		storageManager.readAllFiles();
 		scanner = new Scanner(System.in);
 		while(this.running) {
