@@ -16,7 +16,7 @@ public class Creature {
 		this.faction = faction;
 		this.descriptionPhysique = descriptionPhysique;
 		this.family = family;
-		FamilyBook.familyBook.addIntoFamily(name, family);
+		if(family != null) FamilyBook.familyBook.addIntoFamily(name, family);
 	}
 
 	public String getName() {
