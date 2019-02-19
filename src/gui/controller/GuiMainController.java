@@ -19,14 +19,9 @@ import model.Bestiary;
 import model.Creature;
 import model.CreatureBuilder;
 import model.Family;
+import model.FamilyBook;
 
 public class GuiMainController {
-	
-	@FXML
-	private ListView<String> creatureList;
-	
-	@FXML
-	private ListView<Family> familyList;
 	
 	@FXML
 	private Label creatureNameLabel;
@@ -45,8 +40,17 @@ public class GuiMainController {
 	
 	@FXML
 	private Label creatureMadnessLabel;
-	
+
+	@FXML
+	private ListView<String> creatureList;
 	private ListProperty<String> creatureListProperty = new SimpleListProperty<>();
+	
+	@FXML
+	private Label familyNameLabel;
+	
+	@FXML
+	private ListView<String> familyList;
+	private ListProperty<String> familyListProperty = new SimpleListProperty<>();
 	
 	private MainGui mainRef;
 	
@@ -60,8 +64,19 @@ public class GuiMainController {
 				refreshCreatureDetail(Bestiary.bestiary.getCreature(creatureList.getSelectionModel().getSelectedItem()));
 			}
 		});
+		
+		familyList.itemsProperty().bind(familyListProperty);
+		familyList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		familyList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				refreshFamilyDetail(FamilyBook.familyBook.getFamily(familyList.getSelectionModel().getSelectedItem()));
+			}
+		});
 		refreshCreatureList();
 		refreshCreatureDetail(null);
+		refreshFamilyList();
+		refreshFamilyDetail(null);
 	}
 	
 	public void setMainRef(MainGui mainGui) {
@@ -124,6 +139,18 @@ public class GuiMainController {
 			creatureLifeLabel.setText((creature.getCaracteristic() == null)?"":Integer.toString(creature.getCaracteristic().getLife()));
 			creatureStrengthLabel.setText((creature.getCaracteristic() == null)?"":Integer.toString(creature.getCaracteristic().getStrength()));
 			creatureMadnessLabel.setText((creature.getCaracteristic() == null)?"":Integer.toString(creature.getCaracteristic().getMadness()));
+		}
+	}
+	
+	private void refreshFamilyList() {
+		familyListProperty.set(FXCollections.observableArrayList(FamilyBook.familyBook.getAllFamiliesName()));
+	}
+	
+	private void refreshFamilyDetail(Family family) {
+		if(family == null) {
+			familyNameLabel.setText("");
+		} else {
+			familyNameLabel.setText((family.getFamilyName() == null)?"":family.getFamilyName());
 		}
 	}
 }

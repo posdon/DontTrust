@@ -45,4 +45,12 @@ public class FamilyBook {
 	public Collection<Family> getFamilies() {
 		return families.keySet();
 	}
+	
+	public Collection<String> getAllFamiliesName() {
+		List<String> result = new ArrayList<String>();
+		for(Family family : families.keySet()) {
+			result.add(family.getFamilyName());
+		}
+		return result;
+	}
 }
