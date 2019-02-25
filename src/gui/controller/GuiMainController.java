@@ -3,6 +3,7 @@ package gui.controller;
 import java.io.IOException;
 
 import exception.CreatureListException;
+import exception.FamilyListException;
 import gui.MainGui;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -13,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import model.Bestiary;
@@ -20,6 +22,7 @@ import model.Creature;
 import model.CreatureBuilder;
 import model.Family;
 import model.FamilyBook;
+import model.FamilyBuilder;
 
 public class GuiMainController {
 	
@@ -51,6 +54,9 @@ public class GuiMainController {
 	@FXML
 	private ListView<String> familyList;
 	private ListProperty<String> familyListProperty = new SimpleListProperty<>();
+	
+	@FXML
+	private TabPane mainTabPane;
 	
 	private MainGui mainRef;
 	
@@ -84,7 +90,18 @@ public class GuiMainController {
 	}
 	
 	@FXML
-	public void handlerNewButton() throws IOException {
+	public void handlerNewButton() throws IOException, FamilyListException {
+		switch(mainTabPane.getSelectionModel().getSelectedIndex()) {
+			case 0 : 
+				newButtonCreatureAction();
+				break;
+			case 1 : 
+				newButtonFamilyAction();
+				break;
+		}
+	}
+		
+	private void newButtonCreatureAction() throws IOException {
 		CreatureBuilder builder = new CreatureBuilder();
 		if(this.mainRef.showNewCreatureDialog(builder)) {
 			try {
@@ -100,8 +117,35 @@ public class GuiMainController {
 		}
 	}
 	
+	private void newButtonFamilyAction() throws IOException {
+		FamilyBuilder builder = new FamilyBuilder();
+		if(this.mainRef.showNewFamilyDialog(builder)) {
+			try {
+				FamilyBook.familyBook.addFamily(builder.build());
+				refreshFamilyList();
+			} catch (FamilyListException e) {
+				Alert alert = new Alert(AlertType.ERROR);
+		        alert.setTitle("New Family Error");
+		        alert.setHeaderText("Family already exist");
+		        alert.setContentText("The family '"+builder.getFamilyName()+"' already exist.");
+		        alert.showAndWait(); 
+			}
+		}
+	}
+	
 	@FXML
 	public void handlerDeleteButton() {
+		switch(mainTabPane.getSelectionModel().getSelectedIndex()) {
+		case 0 : 
+			deleteButtonCreatureAction();
+			break;
+		case 1 : 
+			deleteButtonFamilyAction();
+			break;
+		}
+	}
+	
+	private void deleteButtonCreatureAction() {
 		String creatureName = this.creatureList.getSelectionModel().getSelectedItem();
 		try {
 			Bestiary.bestiary.removeCreature(creatureName);
@@ -111,6 +155,20 @@ public class GuiMainController {
 	        alert.setTitle("Delete Creature Error");
 	        alert.setHeaderText("Creature doesn't exist");
 	        alert.setContentText("The creature '"+creatureName+"' doesn't exist.");
+	        alert.showAndWait(); 
+		}
+	}
+	
+	private void deleteButtonFamilyAction() {
+		String familyName = this.familyList.getSelectionModel().getSelectedItem();
+		try {
+			FamilyBook.familyBook.removeFamily(familyName);
+			refreshFamilyList();
+		} catch (FamilyListException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+	        alert.setTitle("Delete Family Error");
+	        alert.setHeaderText("Family doesn't exist");
+	        alert.setContentText("The family '"+familyName+"' doesn't exist.");
 	        alert.showAndWait(); 
 		}
 	}

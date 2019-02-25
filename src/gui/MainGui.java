@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import bot.MainBot;
 import gui.controller.GuiMainController;
 import gui.controller.NewCreatureController;
+import gui.controller.NewFamilyController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,8 +18,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Bestiary;
 import model.CreatureBuilder;
+import model.FamilyBuilder;
 import storage.StorageManager;
 
 public class MainGui extends Application {
@@ -82,6 +83,28 @@ public class MainGui extends Application {
 		controller.setCreatureBuilder(builder);
 		
 		newCreatureDialogStage.showAndWait();
+		
+		return controller.isOkClicked();
+	}
+	
+	public boolean showNewFamilyDialog(FamilyBuilder builder) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("view/newFamilyView.fxml"));
+		AnchorPane newFamilyPage = (AnchorPane) loader.load();
+		
+		Stage newFamilyDialogStage = new Stage();
+		newFamilyDialogStage.setTitle("New Creature");
+		newFamilyDialogStage.initModality(Modality.WINDOW_MODAL);
+		newFamilyDialogStage.initOwner(primaryStage);
+		
+		Scene scene = new Scene(newFamilyPage);
+		newFamilyDialogStage.setScene(scene);
+		
+		NewFamilyController controller = loader.getController();
+		controller.setDialogStage(newFamilyDialogStage);
+		controller.setFamilyBuilder(builder);
+		
+		newFamilyDialogStage.showAndWait();
 		
 		return controller.isOkClicked();
 	}

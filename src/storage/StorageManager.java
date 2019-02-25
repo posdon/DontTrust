@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import exception.CreatureListException;
+import exception.FamilyListException;
 import exception.JSONConverterException;
 import model.Bestiary;
 import model.Creature;
@@ -71,6 +72,8 @@ public class StorageManager {
 				} catch (IOException e) {
 					logger.error("Can't open "+fileEntry.getName());
 					e.getStackTrace();
+				} catch (FamilyListException e) {
+					logger.warn(e.getMessage());
 				}  
 	        }
 	    }

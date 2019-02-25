@@ -16,7 +16,7 @@
    <children>
       <VBox prefHeight="695.0" prefWidth="339.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TabPane prefHeight="657.0" prefWidth="339.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="mainTabPane" prefHeight="657.0" prefWidth="339.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Creature">
                   <content>
