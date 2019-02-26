@@ -116,8 +116,12 @@ public class BestiaryBotCommand extends BasicCommand {
 	}
 	
 	@Command(name="infoFamily", description="Given a family name, get the detail of a family", type=ExecutorType.BOT)
-	public void infoFamily(MessageChannel mChannel, String familyName) {
+	public void infoFamily(MessageChannel mChannel, String familyName) throws MessageOver2000Exception {
 		Family family = FamilyBook.familyBook.getFamily(familyName);
+		if(family == null) {
+			sendMessage("The family '"+familyName+"' doesn't exist.", mChannel);
+			return;
+		}
 		EmbedBuilder embedBuilder = new EmbedBuilder().setAuthor(family.getFamilyName().toUpperCase());
 		sendEmbed(embedBuilder, mChannel);
 	}
