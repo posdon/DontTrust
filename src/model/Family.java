@@ -3,13 +3,25 @@ package model;
 public class Family {
 
 	private String familyName;
+	private String description;
+	private String histoire;
 	
-	public Family(String name) {
+	public Family(String name, String description, String histoire) {
 		this.familyName = name;
+		this.description = description;
+		this.histoire = histoire;
 	}
 	
 	public String getFamilyName() {
 		return this.familyName;
+	}
+	
+	public String getDescription() {
+		return this.description;
+	}
+	
+	public String getHistoire() {
+		return this.histoire;
 	}
 
 	@Override
