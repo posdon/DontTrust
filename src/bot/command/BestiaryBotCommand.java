@@ -122,7 +122,9 @@ public class BestiaryBotCommand extends BasicCommand {
 			sendMessage("The family '"+familyName+"' doesn't exist.", mChannel);
 			return;
 		}
-		EmbedBuilder embedBuilder = new EmbedBuilder().setAuthor(family.getFamilyName().toUpperCase());
+		EmbedBuilder embedBuilder = new EmbedBuilder().setAuthor(family.getFamilyName().toUpperCase())
+				.addField("Description : ", family.getDescription(), false)
+				.addField("Histoire", family.getHistoire(), false);
 		sendEmbed(embedBuilder, mChannel);
 	}
 	

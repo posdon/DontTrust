@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.FamilyBook;
@@ -13,6 +14,12 @@ public class NewFamilyController {
 
 	@FXML
 	private TextField nameTextField;
+	
+	@FXML
+	private TextArea histoireTextArea;
+	
+	@FXML
+	private TextArea descriptionTextArea;
 	
 	private final String VERIFICATION_NAME_TEXT_OK = "The name is valid !";
 	private final String VERIFICATION_NAME_TEXT_KO = "The name is already used.";
@@ -32,9 +39,13 @@ public class NewFamilyController {
 	
 	public boolean verifNameValid() {
 		String name = nameTextField.getText();
+		String histoire = histoireTextArea.getText();
+		String description = descriptionTextArea.getText();
 		if(FamilyBook.familyBook.isValidName(name)) {
 			try {
 				builder.setFamilyName(name);
+				builder.setDescription(description);
+				builder.setHistoire(histoire);
 				verificationNameLabel.setText(VERIFICATION_NAME_TEXT_OK);
 				return true;
 			} catch (Exception e) {}

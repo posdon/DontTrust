@@ -43,6 +43,12 @@ public class GuiMainController {
 	
 	@FXML
 	private Label creatureMadnessLabel;
+	
+	@FXML
+	private Label descriptionFamilyLabel;
+	
+	@FXML
+	private Label histoireFamilyLabel;
 
 	@FXML
 	private ListView<String> creatureList;
@@ -207,8 +213,12 @@ public class GuiMainController {
 	private void refreshFamilyDetail(Family family) {
 		if(family == null) {
 			familyNameLabel.setText("");
+			histoireFamilyLabel.setText("");
+			descriptionFamilyLabel.setText("");
 		} else {
 			familyNameLabel.setText((family.getFamilyName() == null)?"":family.getFamilyName());
+			histoireFamilyLabel.setText((family.getHistoire() == null)?"":family.getHistoire());
+			descriptionFamilyLabel.setText((family.getDescription()== null)?"":family.getDescription()); 
 		}
 	}
 }

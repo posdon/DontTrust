@@ -111,7 +111,7 @@
                                        <children>
                                           <VBox layoutX="215.0" layoutY="52.0" prefHeight="626.0" prefWidth="630.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                <HBox prefHeight="37.0" prefWidth="630.0">
                                                    <children>
                                                       <Label text="Name : ">
                                                          <HBox.margin>
@@ -123,6 +123,26 @@
                                                             <Insets top="10.0" />
                                                          </HBox.margin>
                                                       </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="162.0" prefWidth="630.0">
+                                                   <children>
+                                                      <Label text="Description :">
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Label fx:id="descriptionFamilyLabel" text="Label" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Label text="Histoire : ">
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <Label fx:id="histoireFamilyLabel" text="Label" />
                                                    </children>
                                                 </HBox>
                                              </children>

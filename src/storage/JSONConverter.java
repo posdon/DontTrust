@@ -89,6 +89,8 @@ public class JSONConverter implements Converter {
 		JSONObject object = (JSONObject) parser.parse(jsonContent);
 		FamilyBuilder builder = new FamilyBuilder();
 		if(object.get("name") != null)  builder.setFamilyName(object.get("name").toString());
+		if(object.get("description") != null)  builder.setDescription(object.get("description").toString());
+		if(object.get("histoire") != null)  builder.setHistoire(object.get("histoire").toString());
 		return builder.build();
 	}
 
@@ -97,7 +99,11 @@ public class JSONConverter implements Converter {
 		JSONObject jsonObject = new JSONObject();
 		if(family == null) return jsonObject;
 		String name = family.getFamilyName();
+		String description = family.getDescription();
+		String histoire = family.getHistoire();
 		jsonObject.put("name", name);
+		jsonObject.put("description", description);
+		jsonObject.put("histoire", histoire);
 		return jsonObject;
 	}
 }
